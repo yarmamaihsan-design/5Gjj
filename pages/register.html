@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Registration | KowaGuru Technology</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #080c0a;
+            color: #e2e8f0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .aurora {
+            position: fixed; inset: 0; z-index: 0; overflow: hidden;
+            pointer-events: none;
+        }
+        .blob {
+            position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.35;
+            animation: float 18s infinite alternate ease-in-out;
+        }
+        .b1 { width: 55vw; height: 55vw; background: #0a3a20; top: -15%; left: -10%; animation-delay: 0s; }
+        .b2 { width: 45vw; height: 45vw; background: #052614; bottom: -15%; right: -5%; animation-delay: -7s; }
+        .b3 { width: 35vw; height: 35vw; background: #123e25; top: 30%; left: 35%; animation-delay: -13s; }
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(20px, -40px) scale(1.08); }
+            100% { transform: translate(-15px, 15px) scale(0.95); }
+        }
+
+        .noise {
+            position: fixed; inset: 0; z-index: 0; opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        .page {
+            position: relative; z-index: 1;
+            min-height: 100vh; display: flex; flex-direction: column;
+        }
+
+        header {
+            position: sticky; top: 0; z-index: 50;
+            background: rgba(8, 12, 10, 0.85);
+            backdrop-filter: blur(20px) saturate(1.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 0 32px; height: 68px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .logo {
+            font-family: 'Syne', sans-serif; font-size: 1.25rem; font-weight: 800;
+            color: #fff; display: flex; align-items: center; gap: 10px;
+        }
+        .logo i { color: #22c55e; }
+        header nav a {
+            color: rgba(255, 255, 255, 0.5); font-size: 0.85rem; font-weight: 500;
+            text-decoration: none; margin-left: 28px; transition: color 0.3s;
+        }
+        header nav a:hover { color: #fff; }
+        .nav-cta {
+            background: rgba(34, 197, 94, 0.15); border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #4ade80 !important; border-radius: 8px; padding: 7px 16px !important;
+            margin-left: 20px !important;
+        }
+
+        .screen {
+            display: none; flex: 1;
+            align-items: center; justify-content: center;
+            padding: 40px 20px;
+            animation: screenIn 0.5s ease;
+        }
+        .screen.active { display: flex; }
+        @keyframes screenIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .glass {
+            background: rgba(15, 23, 20, 0.75);
+            backdrop-filter: blur(24px) saturate(1.3);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+            border-radius: 24px;
+        }
+
+        #gate-screen .card {
+            width: 100%; max-width: 480px; padding: 52px 44px; text-align: center;
+        }
+        .gate-icon {
+            width: 80px; height: 80px; border-radius: 50%;
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(34, 197, 94, 0.05));
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 28px; font-size: 2rem; color: #22c55e;
+            animation: pulse-ring 3s ease-in-out infinite;
+        }
+        @keyframes pulse-ring {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.3); }
+            50% { box-shadow: 0 0 0 20px rgba(34, 197, 94, 0); }
+        }
+        #gate-screen h1 {
+            font-family: 'Syne', sans-serif; font-size: 1.9rem; font-weight: 800;
+            color: #fff; margin-bottom: 10px;
+        }
+        #gate-screen p {
+            color: rgba(255, 255, 255, 0.45); font-size: 0.9rem;
+            line-height: 1.6; margin-bottom: 36px;
+        }
+        .badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.25);
+            color: #4ade80; padding: 6px 14px; border-radius: 100px;
+            font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px;
+            text-transform: uppercase; margin-bottom: 24px;
+        }
+        .code-input-wrap { position: relative; margin-bottom: 16px; }
+        .code-input {
+            width: 100%; background: rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 14px;
+            padding: 18px 22px; font-size: 1.2rem; font-family: 'Courier New', monospace;
+            color: #fff; text-align: center; letter-spacing: 6px; text-transform: uppercase;
+            transition: all 0.3s;
+        }
+        .code-input:focus {
+            outline: none; border-color: #22c55e;
+            box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.15);
+        }
+        .code-input::placeholder { letter-spacing: 2px; color: rgba(255, 255, 255, 0.2); font-size: 0.9rem; }
+        .code-input.error { border-color: #ef4444 !important; box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15) !important; }
+        .code-input.success { border-color: #22c55e !important; box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.15) !important; }
+
+        .btn-primary {
+            width: 100%; padding: 16px; border-radius: 12px;
+            background: linear-gradient(135deg, #16a34a, #15803d); color: #fff;
+            font-size: 0.95rem; font-weight: 700; border: none; cursor: pointer;
+            transition: all 0.3s; position: relative; overflow: hidden;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .btn-primary::before {
+            content: ''; position: absolute; top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transition: left 0.6s;
+        }
+        .btn-primary:hover::before { left: 100%; }
+        .btn-primary:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(22, 163, 74, 0.35); }
+        .btn-primary:active:not(:disabled) { transform: translateY(0); }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+        .error-msg {
+            background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.25);
+            color: #fca5a5; border-radius: 10px; padding: 12px 16px;
+            font-size: 0.85rem; margin-top: 14px; display: none;
+            animation: shake 0.4s ease;
+        }
+        .error-msg.show { display: block; }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-6px); }
+            40% { transform: translateX(6px); }
+            60% { transform: translateX(-4px); }
+            80% { transform: translateX(4px); }
+        }
+
+        .success-msg {
+            background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.25);
+            color: #86efac; border-radius: 10px; padding: 12px 16px;
+            font-size: 0.85rem; margin-top: 14px; display: none;
+        }
+        .success-msg.show { display: block; }
+
+        .spinner {
+            display: none; width: 18px; height: 18px;
+            border: 2px solid rgba(255,255,255,0.3); border-top: 2px solid #fff;
+            border-radius: 50%; animation: spin 0.8s linear infinite;
+        }
+        .btn-primary.loading .spinner { display: inline-block; }
+        .btn-primary.loading .btn-text { display: none; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        #reg-screen {
+            align-items: flex-start; padding-top: 50px; padding-bottom: 60px;
+        }
+        .reg-wrap { width: 100%; max-width: 900px; margin: 0 auto; }
+        .reg-header { text-align: center; margin-bottom: 36px; }
+        .reg-header h2 {
+            font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800;
+            color: #fff; margin-bottom: 10px;
+        }
+        .reg-header p { color: rgba(255, 255, 255, 0.45); }
+
+        .steps {
+            display: flex; align-items: center; gap: 8px; margin-bottom: 36px;
+        }
+        .step-bar {
+            flex: 1; height: 3px; border-radius: 100px;
+            background: rgba(255, 255, 255, 0.08); transition: background 0.5s;
+        }
+        .step-bar.done { background: #22c55e; }
+        .step-label { font-size: 0.72rem; color: rgba(255, 255, 255, 0.35); white-space: nowrap; }
+        .step-label.active { color: #4ade80; font-weight: 600; }
+
+        .reg-card { padding: 40px 44px; }
+
+        .form-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+        }
+        .form-group {
+            display: flex; flex-direction: column; gap: 8px;
+            animation: fadeUp 0.4s ease backwards;
+        }
+        .form-group.full { grid-column: 1 / -1; }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        label {
+            font-size: 0.78rem; font-weight: 600;
+            color: rgba(255, 255, 255, 0.45); text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        label .req { color: #ef4444; margin-left: 2px; }
+
+        .field {
+            background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px; padding: 14px 18px; color: #fff;
+            font-size: 0.95rem; font-family: 'Inter', sans-serif;
+            transition: all 0.3s; width: 100%;
+        }
+        .field:focus {
+            outline: none; border-color: #22c55e;
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.12);
+        }
+        .field::placeholder { color: rgba(255, 255, 255, 0.2); }
+        .field.error {
+            border-color: rgba(239, 68, 68, 0.5) !important;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12) !important;
+        }
+        .field.success { border-color: rgba(34, 197, 94, 0.4) !important; }
+        select.field option { background: #111; color: #fff; }
+        select.field { cursor: pointer; }
+
+        .form-actions {
+            margin-top: 32px; display: flex; gap: 14px;
+        }
+        .btn-sec {
+            flex: 1; padding: 16px; border-radius: 12px; background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1); color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .btn-sec:hover { background: rgba(255, 255, 255, 0.05); color: #fff; }
+        .btn-primary.flex-2 { flex: 2; }
+
+        .radio-group { display: flex; flex-wrap: wrap; gap: 10px; }
+        .radio-opt {
+            flex: 1; min-width: 140px; background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px;
+            padding: 14px 16px; cursor: pointer; transition: all 0.3s;
+            display: flex; align-items: center; gap: 10px;
+            font-size: 0.9rem; color: rgba(255, 255, 255, 0.6);
+        }
+        .radio-opt:hover { border-color: rgba(34, 197, 94, 0.4); }
+        .radio-opt.selected {
+            border-color: #22c55e; background: rgba(34, 197, 94, 0.08); color: #4ade80;
+        }
+        .radio-opt input { display: none; }
+        .radio-opt .radio-circle {
+            width: 18px; height: 18px; border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+        .radio-opt.selected .radio-circle { border-color: #22c55e; }
+        .radio-opt.selected .radio-circle::after {
+            content: ''; width: 8px; height: 8px; border-radius: 50%; background: #22c55e;
+        }
+
+        .checkbox-wrap {
+            display: flex; align-items: flex-start; gap: 12px;
+            background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px; padding: 16px 18px; cursor: pointer; transition: all 0.3s;
+        }
+        .checkbox-wrap:hover { border-color: rgba(255, 255, 255, 0.15); }
+        .checkbox-wrap input { display: none; }
+        .checkbox-wrap .check-box {
+            width: 20px; height: 20px; border-radius: 6px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; margin-top: 2px; transition: all 0.3s;
+        }
+        .checkbox-wrap.checked .check-box { background: #22c55e; border-color: #22c55e; }
+        .checkbox-wrap.checked .check-box::after {
+            content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
+            font-size: 0.7rem; color: #fff;
+        }
+        .checkbox-wrap .check-label {
+            font-size: 0.88rem; color: rgba(255, 255, 255, 0.6); line-height: 1.5;
+        }
+        .checkbox-wrap.checked .check-label { color: #e2e8f0; }
+        .checkbox-wrap .check-label small {
+            display: block; margin-top: 4px; font-size: 0.75rem; color: rgba(255, 255, 255, 0.35);
+        }
+
+        .conditional-section {
+            border: 1px dashed rgba(34, 197, 94, 0.3); border-radius: 16px;
+            padding: 24px; background: rgba(34, 197, 94, 0.03); margin-top: 8px;
+            animation: fadeUp 0.4s ease;
+        }
+        .conditional-section .section-title {
+            font-size: 0.85rem; font-weight: 700; color: #4ade80;
+            margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+        }
+
+        .section-divider {
+            grid-column: 1 / -1;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            margin: 8px 0; padding-top: 16px;
+        }
+        .section-divider h3 {
+            font-size: 0.85rem; font-weight: 700; color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase; letter-spacing: 1.5px;
+            display: flex; align-items: center; gap: 8px;
+        }
+
+        #success-screen .card {
+            max-width: 520px; width: 100%; padding: 56px 44px; text-align: center;
+        }
+        .success-icon {
+            width: 90px; height: 90px; border-radius: 50%;
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.05));
+            border: 1px solid rgba(34, 197, 94, 0.4);
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 28px; font-size: 2.5rem; color: #22c55e;
+            animation: scaleIn 0.5s ease;
+        }
+        @keyframes scaleIn {
+            0% { transform: scale(0); opacity: 0; }
+            60% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        #success-screen h2 {
+            font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800;
+            color: #fff; margin-bottom: 12px;
+        }
+        #success-screen p { color: rgba(255, 255, 255, 0.45); line-height: 1.7; margin-bottom: 32px; }
+        .ref-box {
+            background: rgba(34, 197, 94, 0.08); border: 1px solid rgba(34, 197, 94, 0.2);
+            border-radius: 12px; padding: 16px 20px; margin-bottom: 28px;
+        }
+        .ref-box small {
+            display: block; font-size: 0.72rem; color: rgba(255, 255, 255, 0.35);
+            margin-bottom: 4px; letter-spacing: 1px; text-transform: uppercase;
+        }
+        .ref-box span {
+            font-family: monospace; font-size: 1.1rem; color: #4ade80; letter-spacing: 3px;
+        }
+        .detail-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+            text-align: left; margin-bottom: 28px;
+        }
+        .detail-item {
+            background: rgba(0,0,0,0.2); border-radius: 10px; padding: 12px 16px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .detail-item small {
+            display: block; font-size: 0.7rem; color: rgba(255,255,255,0.35);
+            text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;
+        }
+        .detail-item span {
+            font-size: 0.9rem; color: #e2e8f0; font-weight: 500;
+        }
+
+        .bottom-line {
+            position: fixed; bottom: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, #22c55e, transparent);
+            opacity: 0.4; animation: glow-move 4s ease-in-out infinite;
+        }
+        @keyframes glow-move {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.6; }
+        }
+
+        .helper-text {
+            font-size: 0.72rem; color: rgba(255, 255, 255, 0.3); margin-top: 4px;
+        }
+        .helper-text.error { color: #fca5a5; }
+        .helper-text.success { color: #86efac; }
+
+        .toast {
+            position: fixed; top: 80px; right: 20px; z-index: 100;
+            padding: 14px 20px; border-radius: 12px; font-size: 0.9rem; font-weight: 500;
+            transform: translateX(150%); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-width: 380px; backdrop-filter: blur(16px);
+            display: flex; align-items: center; gap: 10px;
+        }
+        .toast.show { transform: translateX(0); }
+        .toast.error { background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); color: #fca5a5; }
+        .toast.success { background: rgba(34, 197, 94, 0.15); border: 1px solid rgba(34, 197, 94, 0.3); color: #86efac; }
+        .toast.info { background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3); color: #93c5fd; }
+
+        #confetti-canvas {
+            position: fixed; inset: 0; z-index: 60; pointer-events: none;
+        }
+
+        .security-note {
+            background: rgba(251, 191, 36, 0.08);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 0.75rem;
+            color: rgba(251, 191, 36, 0.8);
+            margin-top: 16px;
+            text-align: left;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .security-note i { margin-top: 2px; }
+
+        @media (max-width: 640px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .form-group.full { grid-column: 1; }
+            .reg-card { padding: 28px 22px; }
+            #gate-screen .card { padding: 36px 24px; }
+            header nav { display: none; }
+            .radio-group { flex-direction: column; }
+            .radio-opt { min-width: 100%; }
+            .detail-grid { grid-template-columns: 1fr; }
+            .steps { flex-wrap: wrap; gap: 4px; }
+            .step-label { font-size: 0.65rem; }
+        }
+    </style>
+<base target="_blank">
+</head>
+
+<body>
+    <div class="aurora">
+        <div class="blob b1"></div>
+        <div class="blob b2"></div>
+        <div class="blob b3"></div>
+    </div>
+    <div class="noise"></div>
+    <canvas id="confetti-canvas"></canvas>
+
+    <div class="page">
+        <header>
+            <div class="logo"><i class="fa-solid fa-microchip"></i> KowaGuru</div>
+            <nav>
+                <a href="#">Home</a>
+                <a href="#">About Us</a>
+                <a href="#">Our Services</a>
+                <a href="#">Verify Certificate</a>
+            </nav>
+            <a href="#" class="nav-cta" style="background:#22c55e;color:#fff !important;">Register Now</a>
+        </header>
+
+        <!-- SCREEN 1: CODE GATE -->
+        <div class="screen active" id="gate-screen">
+            <div class="card glass">
+                <div class="badge"><i class="fa-solid fa-lock"></i> Access Required</div>
+                <div class="gate-icon"><i class="fa-solid fa-ticket"></i></div>
+                <h1>Enter Your Registration Code</h1>
+                <p>Your unique registration code was issued after payment. Enter it below to unlock the registration form.</p>
+
+                <div class="code-input-wrap">
+                    <input class="code-input" id="codeInput" maxlength="20" placeholder="REG-2026-1937" type="text" autocomplete="off" />
+                </div>
+                <div class="error-msg" id="gateError"></div>
+                <div class="success-msg" id="gateSuccess"></div>
+                <br>
+                <button class="btn-primary" id="verifyBtn" onclick="verifyCode()">
+                    <span class="spinner"></span>
+                    <span class="btn-text"><i class="fa-solid fa-key"></i> Unlock Registration</span>
+                </button>
+
+                <div class="security-note">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Each code is unique and can only be used once. Purchase your code from KowaGuru admin before registering.</span>
+                </div>
+
+                <p style="margin-top: 20px; font-size: 0.78rem; color: rgba(255,255,255,0.25); line-height: 1.6;">
+                    Contact <a href="mailto:support@kowaguru.com" style="color:#4ade80;">support@kowaguru.com</a> if you need help.
+                </p>
+            </div>
+        </div>
+
+        <!-- SCREEN 2: REGISTRATION FORM -->
+        <div class="screen" id="reg-screen">
+            <div class="reg-wrap">
+                <div class="reg-header">
+                    <div class="badge"><i class="fa-solid fa-check"></i> Code Verified</div>
+                    <h2>Complete Your Registration</h2>
+                    <p>Fill in your details below to complete enrollment into the KowaGuru Digital Skills Academy.</p>
+                </div>
+
+                <div class="steps">
+                    <span class="step-label active" id="lbl1">Personal</span>
+                    <div class="step-bar done" id="bar1"></div>
+                    <span class="step-label" id="lbl2">Course & Session</span>
+                    <div class="step-bar" id="bar2"></div>
+                    <span class="step-label" id="lbl3">Consent & Submit</span>
+                    <div class="step-bar" id="bar3"></div>
+                    <span class="step-label" id="lbl4">Done</span>
+                </div>
+
+                <!-- STEP 1 -->
+                <div class="reg-card glass" id="step1">
+                    <form id="regForm1" onsubmit="return false;">
+                        <div class="form-grid">
+                            <div class="section-divider">
+                                <h3><i class="fa-solid fa-user"></i> Personal Information</h3>
+                            </div>
+                            <div class="form-group">
+                                <label>Full Name <span class="req">*</span></label>
+                                <input class="field" id="fullName" placeholder="e.g. Amina Abdullahi" type="text" />
+                            </div>
+                            <div class="form-group">
+                                <label>Date of Birth <span class="req">*</span></label>
+                                <input class="field" id="dob" type="date" onchange="checkAge()" />
+                                <span class="helper-text" id="ageHint"></span>
+                            </div>
+                            <div class="form-group">
+                                <label>Gender <span class="req">*</span></label>
+                                <select class="field" id="gender">
+                                    <option value="">Select gender</option>
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                    <option>Prefer not to say</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number <span class="req">*</span></label>
+                                <input class="field" id="phone" placeholder="+234 800 000 0000" type="tel" onblur="validatePhone()" />
+                                <span class="helper-text" id="phoneHint">Format: +234 800 000 0000</span>
+                            </div>
+                            <div class="form-group full">
+                                <label>Email Address <span class="req">*</span></label>
+                                <input class="field" id="email" placeholder="you@example.com" type="email" onblur="validateEmail()" />
+                                <span class="helper-text" id="emailHint"></span>
+                            </div>
+                            <div class="form-group full">
+                                <label>Home Address <span class="req">*</span></label>
+                                <input class="field" id="address" placeholder="Street, City, State" type="text" />
+                            </div>
+                            <div class="section-divider">
+                                <h3><i class="fa-solid fa-graduation-cap"></i> Educational Background</h3>
+                            </div>
+                            <div class="form-group full">
+                                <label>Highest Qualification <span class="req">*</span></label>
+                                <select class="field" id="qualification">
+                                    <option value="">Select qualification</option>
+                                    <option>SSCE / WAEC</option>
+                                    <option>OND / NCE</option>
+                                    <option>HND / B.Sc</option>
+                                    <option>M.Sc / MBA</option>
+                                    <option>Ph.D</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group full">
+                                <label>Last School / Institution Attended <span class="req">*</span></label>
+                                <input class="field" id="school" placeholder="e.g. Bayero University Kano" type="text" />
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button class="btn-primary flex-2" type="button" onclick="goToStep(2)">
+                                Next: Course & Session <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- STEP 2 -->
+                <div class="reg-card glass" id="step2" style="display:none;">
+                    <form id="regForm2" onsubmit="return false;">
+                        <div class="form-grid">
+                            <div class="section-divider">
+                                <h3><i class="fa-solid fa-laptop-code"></i> Course Selection</h3>
+                            </div>
+                            <div class="form-group full">
+                                <label>Select Course <span class="req">*</span></label>
+                                <select class="field" id="course">
+                                    <option value="">Choose a course</option>
+                                    <option>Full-Stack Web Development</option>
+                                    <option>AI & Data Science</option>
+                                    <option>UI/UX Product Design</option>
+                                    <option>Graphic Design</option>
+                                    <option>Computer Fundamentals</option>
+                                    <option>Cybersecurity Basics</option>
+                                    <option>Digital Marketing</option>
+                                    <option>Mobile App Development</option>
+                                </select>
+                            </div>
+                            <div class="form-group full">
+                                <label>Select Level <span class="req">*</span></label>
+                                <div class="radio-group" id="levelGroup">
+                                    <label class="radio-opt" onclick="selectRadio(this, 'level')">
+                                        <input type="radio" name="level" value="Basic">
+                                        <span class="radio-circle"></span>
+                                        <span>Basic</span>
+                                    </label>
+                                    <label class="radio-opt" onclick="selectRadio(this, 'level')">
+                                        <input type="radio" name="level" value="Intermediate">
+                                        <span class="radio-circle"></span>
+                                        <span>Intermediate</span>
+                                    </label>
+                                    <label class="radio-opt" onclick="selectRadio(this, 'level')">
+                                        <input type="radio" name="level" value="Advanced">
+                                        <span class="radio-circle"></span>
+                                        <span>Advanced</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group full">
+                                <label>Training Location <span class="req">*</span></label>
+                                <select class="field" id="location">
+                                    <option value="">Choose a location</option>
+                                    <option>KowaGuru Tech Office, Birnin Kudu</option>
+                                    <option>Virtual Connekt Training Centre, Birnin Kudu</option>
+                                    <option>FCT Digital Training Centre, Gwarimpa, Abuja</option>
+                                    <option>NITDA JSS Zarenawa Digital Learning Center, Birnin Kudu</option>
+                                </select>
+                            </div>
+                            <div class="section-divider">
+                                <h3><i class="fa-solid fa-clock"></i> Session Preference</h3>
+                            </div>
+                            <div class="form-group full">
+                                <label>Preferred Session <span class="req">*</span></label>
+                                <div class="radio-group" id="sessionGroup">
+                                    <label class="radio-opt" onclick="selectRadio(this, 'session')">
+                                        <input type="radio" name="session" value="Weekend Morning (8:50 AM - 12:00 PM)">
+                                        <span class="radio-circle"></span>
+                                        <span>Weekend Morning<br><small style="color:rgba(255,255,255,0.4);font-size:0.75rem;">Sat-Sun, 8:50 AM - 12:00 PM</small></span>
+                                    </label>
+                                    <label class="radio-opt" onclick="selectRadio(this, 'session')">
+                                        <input type="radio" name="session" value="Weekend Evening (1:00 PM - 4:00 PM)">
+                                        <span class="radio-circle"></span>
+                                        <span>Weekend Evening<br><small style="color:rgba(255,255,255,0.4);font-size:0.75rem;">Sat-Sun, 1:00 PM - 4:00 PM</small></span>
+                                    </label>
+                                    <label class="radio-opt" onclick="selectRadio(this, 'session')">
+                                        <input type="radio" name="session" value="Weekday Physical (Mon-Thu, 1:00 PM - 4:00 PM)">
+                                        <span class="radio-circle"></span>
+                                        <span>Weekday Physical<br><small style="color:rgba(255,255,255,0.4);font-size:0.75rem;">Mon-Thu, 1:00 PM - 4:00 PM</small></span>
+                                    </label>
+                                    <label class="radio-opt" onclick="selectRadio(this, 'session')">
+                                        <input type="radio" name="session" value="Online (Mon-Thu, 8:00 PM onwards)">
+                                        <span class="radio-circle"></span>
+                                        <span>Online<br><small style="color:rgba(255,255,255,0.4);font-size:0.75rem;">Mon-Thu, 8:00 PM onwards</small></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button class="btn-sec" type="button" onclick="goToStep(1)">
+                                <i class="fa-solid fa-arrow-left"></i> Back
+                            </button>
+                            <button class="btn-primary flex-2" type="button" onclick="goToStep(3)">
+                                Next: Consent & Submit <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- STEP 3 -->
+                <div class="reg-card glass" id="step3" style="display:none;">
+                    <form id="regForm3" onsubmit="return false;">
+                        <div class="form-grid">
+                            <div id="guardianSection" style="display:none; grid-column: 1 / -1;">
+                                <div class="conditional-section">
+                                    <div class="section-title"><i class="fa-solid fa-shield-halved"></i> Parent / Guardian Information (Required for applicants under 18)</div>
+                                    <div class="form-grid" style="margin-top:0;">
+                                        <div class="form-group">
+                                            <label>Parent/Guardian Full Name <span class="req">*</span></label>
+                                            <input class="field guardian-req" id="guardianName" placeholder="e.g. Mr. Abdullahi Ibrahim" type="text" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Relationship <span class="req">*</span></label>
+                                            <select class="field guardian-req" id="guardianRelation">
+                                                <option value="">Select relationship</option>
+                                                <option>Father</option>
+                                                <option>Mother</option>
+                                                <option>Uncle</option>
+                                                <option>Aunt</option>
+                                                <option>Brother</option>
+                                                <option>Sister</option>
+                                                <option>Legal Guardian</option>
+                                                <option>Other</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Parent/Guardian Phone <span class="req">*</span></label>
+                                            <input class="field guardian-req" id="guardianPhone" placeholder="+234 800 000 0000" type="tel" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Parent/Guardian Email <small style="color:rgba(255,255,255,0.3)">(optional)</small></label>
+                                            <input class="field" id="guardianEmail" placeholder="guardian@example.com" type="email" />
+                                        </div>
+                                        <div class="form-group full">
+                                            <label>Parent/Guardian Address <span class="req">*</span></label>
+                                            <input class="field guardian-req" id="guardianAddress" placeholder="Street, City, State" type="text" />
+                                        </div>
+                                        <div class="form-group full">
+                                            <label class="checkbox-wrap" onclick="toggleCheckbox(this)">
+                                                <input type="checkbox" id="guardianConsent" class="guardian-req-check">
+                                                <span class="check-box"></span>
+                                                <span class="check-label">
+                                                    I, the parent/guardian listed above, give my full consent for the applicant to enroll in KowaGuru Digital Skills Academy. I understand the nature of the training and agree to the terms.
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="section-divider" style="margin-top:24px;">
+                                    <h3><i class="fa-solid fa-file-signature"></i> Final Steps</h3>
+                                </div>
+                            </div>
+                            <div class="form-group full">
+                                <label class="checkbox-wrap" onclick="toggleCheckbox(this)">
+                                    <input type="checkbox" id="mediaConsent">
+                                    <span class="check-box"></span>
+                                    <span class="check-label">
+                                        I consent to photographs and/or videos being taken during training sessions for <strong>educational and promotional purposes</strong>.
+                                        <small>This is optional. Declining does not affect your registration in any way.</small>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="form-group full">
+                                <label class="checkbox-wrap" onclick="toggleCheckbox(this)">
+                                    <input type="checkbox" id="declaration">
+                                    <span class="check-box"></span>
+                                    <span class="check-label">
+                                        I declare that all information provided is accurate and true to the best of my knowledge. I agree to abide by the rules and regulations of KowaGuru Digital Skills Academy. <span class="req">*</span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button class="btn-sec" type="button" onclick="goToStep(2)">
+                                <i class="fa-solid fa-arrow-left"></i> Back
+                            </button>
+                            <button class="btn-primary flex-2" type="button" onclick="submitRegistration()">
+                                <span class="spinner"></span>
+                                <span class="btn-text"><i class="fa-solid fa-paper-plane"></i> Submit Registration</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCREEN 3: SUCCESS -->
+        <div class="screen" id="success-screen">
+            <div class="card glass">
+                <div class="success-icon"><i class="fa-solid fa-check-double"></i></div>
+                <h2>You are Enrolled!</h2>
+                <p>Your registration has been successfully recorded. We will contact you within 24 hours with your schedule and onboarding details.</p>
+                <div class="detail-grid" id="successDetails"></div>
+                <div class="ref-box">
+                    <small>Your Registration Reference</small>
+                    <span id="refCode"></span>
+                </div>
+                <button class="btn-primary" style="width:100%;" onclick="resetAll()">
+                    <i class="fa-solid fa-user-plus"></i> Register Another Student
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+    <div class="bottom-line"></div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+    <script>
+        // ============================================
+        // FIREBASE CONFIG - REAL (API key is public by design)
+        // ============================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyATTe1EAfn4aRss5sNVDsw59HVdb_tN4sQ",
+            authDomain: "kowa-gru-reg.firebaseapp.com",
+            projectId: "kowa-gru-reg",
+            storageBucket: "kowa-gru-reg.firebasestorage.app",
+            messagingSenderId: "1023317910895",
+            appId: "1:1023317910895:web:55a39f501a00831bf6b49a",
+            measurementId: "G-L7XYLWSXE0"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        let currentStep = 1;
+        let verifiedCode = null;
+        let isSubmitting = false;
+        let lastAttemptTime = 0;
+        const RATE_LIMIT_MS = 3000;
+        const MAX_ATTEMPTS = 5;
+        let attemptCount = 0;
+
+        // ============================================
+        // TOAST SYSTEM
+        // ============================================
+        let toastTimeout;
+        function showToast(message, type, duration) {
+            duration = duration || 4000;
+            const toast = document.getElementById('toast');
+            clearTimeout(toastTimeout);
+            toast.className = 'toast ' + type;
+            var icon = type === 'error' ? 'fa-circle-xmark' : type === 'success' ? 'fa-circle-check' : 'fa-circle-info';
+            toast.innerHTML = '<i class="fa-solid ' + icon + '"></i> ' + escapeHtml(message);
+            toast.classList.add('show');
+            toastTimeout = setTimeout(function() { toast.classList.remove('show'); }, duration);
+        }
+
+        function escapeHtml(text) {
+            var div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ============================================
+        // RATE LIMITING
+        // ============================================
+        function checkRateLimit() {
+            var now = Date.now();
+            if (now - lastAttemptTime < RATE_LIMIT_MS) {
+                showToast('Please wait a moment before trying again.', 'error');
+                return false;
+            }
+            if (attemptCount >= MAX_ATTEMPTS) {
+                showToast('Too many attempts. Please try again later.', 'error', 6000);
+                return false;
+            }
+            lastAttemptTime = now;
+            attemptCount++;
+            return true;
+        }
+
+        // ============================================
+        // GATE: VERIFY REGISTRATION CODE
+        // Now accepts the pattern: REG-2026-1937 (REG-YYYY-NUMBER)
+        // ============================================
+        async function verifyCode() {
+            if (!checkRateLimit()) return;
+
+            const btn = document.getElementById('verifyBtn');
+            const input = document.getElementById('codeInput');
+            const errorDiv = document.getElementById('gateError');
+            const successDiv = document.getElementById('gateSuccess');
+            const code = input.value.trim().toUpperCase();
+
+            errorDiv.classList.remove('show');
+            successDiv.classList.remove('show');
+            input.classList.remove('error', 'success');
+
+            if (!code) {
+                input.classList.add('error');
+                errorDiv.textContent = 'Please enter your registration code.';
+                errorDiv.classList.add('show');
+                input.focus();
+                return;
+            }
+
+            // NEW PATTERN: REG-2026-1937 (REG-YYYY-NUMBER)
+            var codePattern = /^REG-[0-9]{4}-[0-9]+$/;
+            if (!codePattern.test(code)) {
+                input.classList.add('error');
+                errorDiv.textContent = 'Invalid format. Code must be like: REG-2026-1937';
+                errorDiv.classList.add('show');
+                input.focus();
+                return;
+            }
+
+            btn.classList.add('loading');
+            btn.disabled = true;
+
+            try {
+                // Check Firestore - Code must exist in database
+                const docRef = db.collection('registrationCodes').doc(code);
+                const doc = await docRef.get();
+
+                if (!doc.exists) {
+                    input.classList.add('error');
+                    errorDiv.textContent = 'Invalid registration code. This code was not found in our system. Please purchase a valid code from KowaGuru admin.';
+                    errorDiv.classList.add('show');
+                    input.focus();
+                    btn.classList.remove('loading');
+                    btn.disabled = false;
+                    return;
+                }
+
+                const data = doc.data();
+
+                if (data.used === true) {
+                    input.classList.add('error');
+                    errorDiv.textContent = 'This code has already been used. Each code can only be used once. Contact support if you believe this is an error.';
+                    errorDiv.classList.add('show');
+                    input.focus();
+                    btn.classList.remove('loading');
+                    btn.disabled = false;
+                    return;
+                }
+
+                // SUCCESS
+                verifiedCode = code;
+                input.classList.add('success');
+                successDiv.textContent = 'Code verified! Unlocking registration...';
+                successDiv.classList.add('show');
+
+                setTimeout(function() {
+                    document.getElementById('gate-screen').classList.remove('active');
+                    document.getElementById('reg-screen').classList.add('active');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }, 800);
+
+            } catch (error) {
+                console.error('Verification error:', error);
+                input.classList.add('error');
+                errorDiv.textContent = 'Network error. Please check your connection and try again.';
+                errorDiv.classList.add('show');
+                btn.classList.remove('loading');
+                btn.disabled = false;
+            }
+        }
+
+        // Auto-format and sanitize input
+        document.getElementById('codeInput').addEventListener('input', function() {
+            this.value = this.value.toUpperCase().replace(/[^A-Z0-9\-]/g, '');
+            this.classList.remove('error', 'success');
+            document.getElementById('gateError').classList.remove('show');
+        });
+
+        document.getElementById('codeInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') verifyCode();
+        });
+
+        // ============================================
+        // STEP NAVIGATION
+        // ============================================
+        function goToStep(step) {
+            if (step === 2 && !validateStep1()) return;
+            if (step === 3 && !validateStep2()) return;
+
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('step2').style.display = 'none';
+            document.getElementById('step3').style.display = 'none';
+
+            document.getElementById('step' + step).style.display = 'block';
+            currentStep = step;
+            updateStepBar(step);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updateStepBar(step) {
+            var bars = [document.getElementById('bar1'), document.getElementById('bar2'), document.getElementById('bar3')];
+            var labels = [document.getElementById('lbl1'), document.getElementById('lbl2'), document.getElementById('lbl3'), document.getElementById('lbl4')];
+
+            bars.forEach(function(bar, i) {
+                bar.classList.toggle('done', i < step);
+            });
+            labels.forEach(function(lbl, i) {
+                lbl.classList.toggle('active', i === step);
+            });
+        }
+
+        // ============================================
+        // VALIDATION HELPERS
+        // ============================================
+        function validateEmail() {
+            const email = document.getElementById('email');
+            const hint = document.getElementById('emailHint');
+            const val = email.value.trim();
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (val && !re.test(val)) {
+                email.classList.add('error');
+                email.classList.remove('success');
+                hint.textContent = 'Please enter a valid email address';
+                hint.className = 'helper-text error';
+                return false;
+            } else if (val) {
+                email.classList.remove('error');
+                email.classList.add('success');
+                hint.textContent = 'Looks good!';
+                hint.className = 'helper-text success';
+                return true;
+            }
+            email.classList.remove('error', 'success');
+            hint.textContent = '';
+            return false;
+        }
+
+        function validatePhone() {
+            const phone = document.getElementById('phone');
+            const hint = document.getElementById('phoneHint');
+            const val = phone.value.trim();
+            const re = /^[\+\d\s\-\(\)]{7,20}$/;
+
+            if (val && !re.test(val)) {
+                phone.classList.add('error');
+                phone.classList.remove('success');
+                hint.textContent = 'Please enter a valid phone number';
+                hint.className = 'helper-text error';
+                return false;
+            } else if (val) {
+                phone.classList.remove('error');
+                phone.classList.add('success');
+                hint.textContent = 'Looks good!';
+                hint.className = 'helper-text success';
+                return true;
+            }
+            phone.classList.remove('error', 'success');
+            hint.textContent = 'Format: +234 800 000 0000';
+            hint.className = 'helper-text';
+            return false;
+        }
+
+        function checkAge() {
+            const dob = document.getElementById('dob');
+            const hint = document.getElementById('ageHint');
+            const guardianSection = document.getElementById('guardianSection');
+
+            if (!dob.value) {
+                hint.textContent = '';
+                guardianSection.style.display = 'none';
+                return;
+            }
+
+            const birthDate = new Date(dob.value);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--;
+
+            if (age < 0 || age > 120) {
+                hint.textContent = 'Please enter a valid date of birth';
+                hint.className = 'helper-text error';
+                dob.classList.add('error');
+                return;
+            }
+
+            dob.classList.remove('error');
+            hint.textContent = 'Age: ' + age + ' years';
+            hint.className = 'helper-text success';
+
+            if (age < 18) {
+                guardianSection.style.display = 'block';
+            } else {
+                guardianSection.style.display = 'none';
+            }
+        }
+
+        // ============================================
+        // STEP VALIDATION
+        // ============================================
+        function validateStep1() {
+            var fields = ['fullName', 'dob', 'gender', 'phone', 'email', 'address', 'qualification', 'school'];
+            var valid = true;
+
+            fields.forEach(function(id) {
+                var el = document.getElementById(id);
+                if (!el.value.trim()) {
+                    el.classList.add('error');
+                    valid = false;
+                } else {
+                    el.classList.remove('error');
+                }
+            });
+
+            if (!validateEmail()) valid = false;
+            if (!validatePhone()) valid = false;
+
+            if (!valid) {
+                showToast('Please fill in all required fields', 'error');
+            }
+            return valid;
+        }
+
+        function validateStep2() {
+            var course = document.getElementById('course');
+            var location = document.getElementById('location');
+            var level = document.querySelector('input[name="level"]:checked');
+            var session = document.querySelector('input[name="session"]:checked');
+            var valid = true;
+
+            if (!course.value) { course.classList.add('error'); valid = false; } else { course.classList.remove('error'); }
+            if (!location.value) { location.classList.add('error'); valid = false; } else { location.classList.remove('error'); }
+            if (!level) valid = false;
+            if (!session) valid = false;
+
+            if (!valid) {
+                showToast('Please complete all course selections', 'error');
+            }
+            return valid;
+        }
+
+        // ============================================
+        // RADIO & CHECKBOX HANDLERS
+        // ============================================
+        function selectRadio(el, groupName) {
+            var group = document.getElementById(groupName + 'Group');
+            group.querySelectorAll('.radio-opt').forEach(function(opt) { opt.classList.remove('selected'); });
+            el.classList.add('selected');
+            el.querySelector('input').checked = true;
+        }
+
+        function toggleCheckbox(el) {
+            var input = el.querySelector('input');
+            input.checked = !input.checked;
+            el.classList.toggle('checked', input.checked);
+        }
+
+        document.querySelectorAll('.field').forEach(function(field) {
+            field.addEventListener('input', function() {
+                this.classList.remove('error');
+            });
+        });
+
+        // ============================================
+        // SUBMIT REGISTRATION
+        // ============================================
+        async function submitRegistration() {
+            if (isSubmitting) return;
+            if (!checkRateLimit()) return;
+
+            var declaration = document.getElementById('declaration');
+            if (!declaration.checked) {
+                showToast('Please accept the declaration to continue', 'error');
+                return;
+            }
+
+            var dobVal = document.getElementById('dob').value;
+            var birthDate = new Date(dobVal);
+            var today = new Date();
+            var age = today.getFullYear() - birthDate.getFullYear();
+            var m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--;
+
+            if (age < 18) {
+                var guardianReqs = ['guardianName', 'guardianRelation', 'guardianPhone', 'guardianAddress'];
+                var guardianValid = true;
+                guardianReqs.forEach(function(id) {
+                    var el = document.getElementById(id);
+                    if (!el.value.trim()) {
+                        el.classList.add('error');
+                        guardianValid = false;
+                    }
+                });
+                if (!document.getElementById('guardianConsent').checked) {
+                    guardianValid = false;
+                }
+                if (!guardianValid) {
+                    showToast('Please complete all guardian information', 'error');
+                    return;
+                }
+            }
+
+            isSubmitting = true;
+            var btn = document.querySelector('#step3 .btn-primary');
+            btn.classList.add('loading');
+            btn.disabled = true;
+
+            showToast('Submitting your registration...', 'info', 6000);
+
+            try {
+                var email = document.getElementById('email').value.trim().toLowerCase();
+
+                var existing = await db.collection('registeredStudents').doc(email).get();
+                if (existing.exists) {
+                    showToast('This email is already registered. Please use a different email.', 'error');
+                    btn.classList.remove('loading');
+                    btn.disabled = false;
+                    isSubmitting = false;
+                    document.getElementById('email').classList.add('error');
+                    return;
+                }
+
+                var registrationDate = firebase.firestore.FieldValue.serverTimestamp();
+                var refCode = 'KGR-' + Date.now().toString(36).toUpperCase();
+
+                var studentData = {
+                    name: document.getElementById('fullName').value.trim(),
+                    email: email,
+                    phone: document.getElementById('phone').value.trim(),
+                    dob: document.getElementById('dob').value,
+                    gender: document.getElementById('gender').value,
+                    address: document.getElementById('address').value.trim(),
+                    qualification: document.getElementById('qualification').value,
+                    school: document.getElementById('school').value.trim(),
+                    course: document.getElementById('course').value,
+                    level: document.querySelector('input[name="level"]:checked')?.value || '',
+                    location: document.getElementById('location').value,
+                    session: document.querySelector('input[name="session"]:checked')?.value || '',
+                    mediaConsent: document.getElementById('mediaConsent').checked,
+                    declaration: true,
+                    code: verifiedCode,
+                    registeredAt: registrationDate,
+                    status: 'active',
+                    refCode: refCode
+                };
+
+                if (age < 18) {
+                    studentData.guardian = {
+                        name: document.getElementById('guardianName').value.trim(),
+                        relation: document.getElementById('guardianRelation').value,
+                        phone: document.getElementById('guardianPhone').value.trim(),
+                        email: document.getElementById('guardianEmail').value.trim() || null,
+                        address: document.getElementById('guardianAddress').value.trim(),
+                        consent: document.getElementById('guardianConsent').checked
+                    };
+                }
+
+                await db.collection('registrationCodes').doc(verifiedCode).update({
+                    used: true,
+                    usedAt: registrationDate,
+                    studentEmail: email,
+                    studentName: studentData.name,
+                    registrationComplete: true
+                });
+
+                await db.collection('registeredStudents').doc(email).set(studentData);
+
+                document.getElementById('reg-screen').classList.remove('active');
+                document.getElementById('success-screen').classList.add('active');
+                document.getElementById('refCode').textContent = refCode;
+
+                var detailsDiv = document.getElementById('successDetails');
+                detailsDiv.innerHTML =
+                    '<div class="detail-item"><small>Name</small><span>' + escapeHtml(studentData.name) + '</span></div>' +
+                    '<div class="detail-item"><small>Email</small><span>' + escapeHtml(studentData.email) + '</span></div>' +
+                    '<div class="detail-item"><small>Course</small><span>' + escapeHtml(studentData.course) + '</span></div>' +
+                    '<div class="detail-item"><small>Level</small><span>' + escapeHtml(studentData.level) + '</span></div>' +
+                    '<div class="detail-item"><small>Location</small><span>' + escapeHtml(studentData.location) + '</span></div>' +
+                    '<div class="detail-item"><small>Session</small><span>' + escapeHtml(studentData.session) + '</span></div>';
+
+                fireConfetti();
+                showToast('Registration completed successfully!', 'success', 5000);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            } catch (error) {
+                console.error('Registration error:', error);
+                showToast('Registration failed: ' + error.message, 'error');
+                btn.classList.remove('loading');
+                btn.disabled = false;
+                isSubmitting = false;
+            }
+        }
+
+        // ============================================
+        // RESET
+        // ============================================
+        function resetAll() {
+            verifiedCode = null;
+            currentStep = 1;
+            isSubmitting = false;
+            attemptCount = 0;
+
+            document.querySelectorAll('.field').forEach(function(f) {
+                f.value = '';
+                f.classList.remove('error', 'success');
+            });
+            document.querySelectorAll('input[type="radio"]').forEach(function(r) { r.checked = false; });
+            document.querySelectorAll('.radio-opt').forEach(function(r) { r.classList.remove('selected'); });
+            document.querySelectorAll('input[type="checkbox"]').forEach(function(c) {
+                c.checked = false;
+                var wrap = c.closest('.checkbox-wrap');
+                if (wrap) wrap.classList.remove('checked');
+            });
+            document.querySelectorAll('.helper-text').forEach(function(h) {
+                h.textContent = '';
+                h.className = 'helper-text';
+            });
+
+            document.getElementById('guardianSection').style.display = 'none';
+            document.getElementById('codeInput').value = '';
+            document.getElementById('codeInput').classList.remove('error', 'success');
+            document.getElementById('gateError').classList.remove('show');
+            document.getElementById('gateSuccess').classList.remove('show');
+
+            document.getElementById('step1').style.display = 'block';
+            document.getElementById('step2').style.display = 'none';
+            document.getElementById('step3').style.display = 'none';
+            updateStepBar(1);
+
+            document.getElementById('success-screen').classList.remove('active');
+            document.getElementById('gate-screen').classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ============================================
+        // CONFETTI
+        // ============================================
+        function fireConfetti() {
+            var canvas = document.getElementById('confetti-canvas');
+            var ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            var particles = [];
+            var colors = ['#22c55e', '#4ade80', '#16a34a', '#86efac', '#ffffff', '#fbbf24'];
+
+            for (var i = 0; i < 120; i++) {
+                particles.push({
+                    x: canvas.width / 2,
+                    y: canvas.height / 2,
+                    vx: (Math.random() - 0.5) * 16,
+                    vy: (Math.random() - 0.5) * 16 - 4,
+                    size: Math.random() * 6 + 2,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    life: 1,
+                    decay: Math.random() * 0.015 + 0.008
+                });
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                var alive = false;
+                particles.forEach(function(p) {
+                    if (p.life > 0) {
+                        alive = true;
+                        p.x += p.vx;
+                        p.y += p.vy;
+                        p.vy += 0.15;
+                        p.life -= p.decay;
+                        ctx.globalAlpha = p.life;
+                        ctx.fillStyle = p.color;
+                        ctx.beginPath();
+                        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                });
+                if (alive) requestAnimationFrame(animate);
+                else ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+            animate();
+        }
+
+        window.addEventListener('resize', function() {
+            var canvas = document.getElementById('confetti-canvas');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        window.addEventListener('load', function() {
+            document.getElementById('codeInput').focus();
+        });
+
+        console.log('KowaGuru Registration Portal loaded');
+    </script>
+</body>
+</html>

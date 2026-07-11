@@ -1,0 +1,210 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="KowaGuru Academy â€” High-demand IT courses, coding bootcamps, and certified digital training."/>
+<title>Digital Skills Training | KowaGuru Technology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="../assets/css/style.css">
+<style>
+    :root {
+        --primary-color: #35824c;
+        --text-muted: #6b7280;
+    }
+    body { background: #f9fafb; }
+
+    /* â”€â”€â”€ Hero â”€â”€â”€ */
+    .train-hero {
+        background: linear-gradient(135deg, #050e08 0%, #0d2218 60%, #1c3b28 100%);
+        padding: 160px 0 100px;
+        position: relative; overflow: hidden; text-align: center;
+    }
+    .train-hero .container { position: relative; z-index: 2; }
+    .train-hero-badge {
+        display: inline-flex; align-items: center; gap: 8px;
+        border: 1px solid rgba(53,130,76,0.4); background: rgba(53,130,76,0.1);
+        color: #6ee7a0; padding: 8px 20px; border-radius: 100px;
+        font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+        margin-bottom: 28px;
+    }
+    .train-hero h1 {
+        font-family: 'Syne', sans-serif;
+        font-size: clamp(2.4rem, 6vw, 4.2rem); font-weight: 800; color: #fff;
+        line-height: 1.1; margin-bottom: 20px;
+    }
+    .train-hero h1 span { background: linear-gradient(90deg, #4ade80, #22d3ee); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .train-hero p { color: rgba(255,255,255,0.55); font-size: 1.15rem; max-width: 600px; margin: 0 auto; }
+
+    /* â”€â”€â”€ Courses Grid â”€â”€â”€ */
+    .courses-section { padding: 90px 0; }
+    .courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    .course-card {
+        background: #fff; border-radius: 20px; overflow: hidden;
+        border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+        transition: all 0.4s ease;
+    }
+    .course-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.06); }
+    .course-img { height: 200px; background: #e5e7eb; position: relative; overflow: hidden; }
+    .course-img img { width: 100%; height: 100%; object-fit: cover; }
+    .course-body { padding: 30px; }
+    .course-tag {
+        display: inline-block; background: #f0faf3; color: var(--primary-color);
+        padding: 4px 12px; border-radius: 100px; font-size: 0.72rem; font-weight: 700;
+        text-transform: uppercase; margin-bottom: 15px;
+    }
+    .course-body h3 { font-family: 'Syne', sans-serif; font-size: 1.25rem; font-weight: 800; color: #111; margin-bottom: 10px; }
+    .course-body p { color: var(--text-muted); font-size: 0.88rem; line-height: 1.6; margin-bottom: 20px; }
+    .course-footer {
+        border-top: 1px solid #f3f4f6; padding-top: 18px;
+        display: flex; justify-content: space-between; align-items: center;
+        font-size: 0.82rem; color: #4b5563; font-weight: 600;
+    }
+
+    /* â”€â”€â”€ CTA Gate â”€â”€â”€ */
+    .academy-gate {
+        background: #091f13; padding: 80px 0; text-align: center; color: #fff;
+    }
+    .academy-gate h2 { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; margin-bottom: 15px; }
+    .academy-gate p { color: rgba(255,255,255,0.6); max-width: 550px; margin: 0 auto 30px; }
+</style>
+</head>
+<body>
+
+<header>
+    <div class="header-container container">
+        <div class="logo">
+            <a href="../index.html"><img src="../assets/images/ceo.jpeg" alt="KowaGuru Logo" style="height:40px;width:40px;object-fit:cover;border-radius:50%;"> KowaGuru</a>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="skills-training.html" class="active">Our Services</a></li>
+                <li><a href="verification.html">Verify Certificate</a></li>
+                <li class="dropdown">
+                    <a href="#">Explore <i class="fa-solid fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="digital-solutions.html">Digital Solutions</a></li>
+                        <li><a href="sport-tech.html">Sport Technology</a></li>
+                        <li><a href="skills-training.html" class="active-drop">Digital Skills Training</a></li>
+                        <li><a href="projects.html">Projects & Portfolio</a></li>
+                        <li><a href="blog.html">News & Blog</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <a href="register.html" class="btn btn-primary">Register Now</a>
+        <button class="nav-toggle" id="navToggle"><i class="fa-solid fa-bars"></i></button>
+    </div>
+</header>
+
+<!-- Hero -->
+<section class="train-hero">
+    <div class="container">
+        <div class="train-hero-badge"><i class="fa-solid fa-graduation-cap"></i> KowaGuru Academy</div>
+        <h1>Elevating African <span>Tech Talent</span></h1>
+        <p>Acquire high-demand software engineering, data analytics, and digital business skills under elite mentorship.</p>
+    </div>
+</section>
+
+<!-- Courses Grid -->
+<section class="courses-section">
+    <div class="container">
+        <div class="courses-grid">
+            
+            <div class="course-card reveal-up">
+                <div class="course-img">
+                    <img src="training skills .jpeg" alt="Software Engineering Bootcamp">
+                </div>
+                <div class="course-body">
+                    <span class="course-tag">Programming</span>
+                    <h3>Full-Stack Software Engineering</h3>
+                    <p>Learn frontend & backend architectures (React, Node, Python, Databases) with a focus on enterprise-grade app deployment.</p>
+                    <div class="course-footer">
+                        <span><i class="fa-regular fa-clock"></i> 6 Months</span>
+                        <span>Certified</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="course-card reveal-up delay-1">
+                <div class="course-img">
+                    <img src="digital solutions .jpeg" alt="Data Analytics & AI">
+                </div>
+                <div class="course-body">
+                    <span class="course-tag">Intelligence</span>
+                    <h3>Data Analytics & AI Engineering</h3>
+                    <p>Master business intelligence tools, machine learning pipelines, and predictive data analysis using Python and SQL.</p>
+                    <div class="course-footer">
+                        <span><i class="fa-regular fa-clock"></i> 4 Months</span>
+                        <span>Certified</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="course-card reveal-up delay-2">
+                <div class="course-img">
+                    <img src="sport tech.jpeg" alt="Sports Performance Tech">
+                </div>
+                <div class="course-body">
+                    <span class="course-tag">Specialized</span>
+                    <h3>Sport Data & Performance Tech</h3>
+                    <p>A unique track focusing on player tracking analytics, soccer stats coding, and match telemetry platforms like Kafriada Net.</p>
+                    <div class="course-footer">
+                        <span><i class="fa-regular fa-clock"></i> 3 Months</span>
+                        <span>Certified</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Registration Gate -->
+<section class="academy-gate">
+    <div class="container">
+        <h2>Secure Your Seat in the Academy</h2>
+        <p>Ready to start? Enter your scratch-card pin on our secure registration portal to enroll.</p>
+        <a href="register.html" class="btn btn-primary">Enroll in Academy</a>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container footer-grid">
+        <div class="footer-brand">
+            <div class="footer-logo">KowaGuru Technology Limited</div>
+            <p>Advancing digital infrastructure for education, health, and sports across Nigeria.</p>
+        </div>
+        <div class="footer-links">
+            <h4>Navigate</h4>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="blog.html">News & Blog</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="verification.html">Verify Certificate</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom container">
+        <p>Â© 2025 KowaGuru Technology Limited. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal-up:not(.is-visible)').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
+

@@ -1,0 +1,401 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KowaGuru Technology Limited</title>
+    <!-- Use Google Fonts (Inter for a modern clean look similar to the image) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+                <div class="logo-text">KowaGuru</div>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="pages/about.html">About Us</a></li>
+                    <li><a href="index.html#ecosystem">Our Services</a></li>
+                    <li><a href="pages/verification.html">Verify Certificate</a></li>
+                    <li class="dropdown">
+                        <a href="#">Explore <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="pages/products.html">Products</a></li>
+                            <li><a href="pages/digital-solutions.html">Digital Solutions</a></li>
+                            <li><a href="pages/sport-tech.html">Sport Technology</a></li>
+                            <li><a href="pages/skills-training.html">Digital Skills Training</a></li>
+                            <li><a href="pages/projects.html">Projects & Portfolio</a></li>
+                            <li><a href="pages/blog.html">News & Blog</a></li>
+                            <li><a href="pages/careers.html">Careers</a></li>
+                            <li><a href="pages/register.html">Student Registration</a></li>
+                            <li><a href="pages/contact.html">Contact Us</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <a href="pages/register.html" class="btn btn-primary">Register Now</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-slides">
+            <div class="hero-slide active" style="background-image: url('assets/images/sport-tech.jpeg');"></div>
+            <div class="hero-slide" style="background-image: url('assets/images/digital-solutions.jpeg');"></div>
+            <div class="hero-slide" style="background-image: url('assets/images/training-skills.jpeg');"></div>
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="container hero-content reveal-up">
+            <h1>Transforming Africa Through<br>Smart Digital Innovation</h1>
+            <p>From advanced healthcare solutions to sports performance tracking and IT training, we power growth with
+                cutting-edge technology.</p>
+
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-overview">
+        <div class="container about-overview-container">
+            <div class="about-overview-content reveal-right">
+                <span class="section-badge">ABOUT KOWAGURU</span>
+                <h2>Pioneering Digital Solutions, Sports Tech, & IT Training</h2>
+                <p>KowaGuru Technology Limited is a premier technology organization in Nigeria, dedicated to driving
+                    digital innovation across Africa. We deliver state-of-the-art software applications, custom digital
+                    transformation solutions, and cutting-edge sports tech systems while empowering the next generation
+                    with high-demand digital skills training.</p>
+                <div class="about-overview-features">
+                    <div class="feature-bullet">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span>Division-focused expert teams for robust delivery</span>
+                    </div>
+                    <div class="feature-bullet">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span>Advanced proprietary tech products like 5G E-Guru Suite</span>
+                    </div>
+                    <div class="feature-bullet">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span>Committed to community upliftment and business growth</span>
+                    </div>
+                </div>
+                <a href="pages/about.html" class="btn btn-primary" style="margin-top: 25px;">Read Our Full Story</a>
+            </div>
+            <div class="about-overview-image reveal-left">
+                <div class="overview-img-card" style="background-image: url('assets/images/training-skills.jpeg');"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Luxury Ecosystem Showcase Section -->
+    <section id="ecosystem" class="luxury-ecosystem">
+        <div class="container">
+            <div class="section-header-center reveal-up">
+                <span class="section-badge luxury-badge">THE KOWAGURU ECOSYSTEM</span>
+                <h2>Next-Generation Technologies</h2>
+                <p>Select a category below to explore our state-of-the-art software platforms and request a demo.</p>
+            </div>
+            
+            <div class="ecosystem-container reveal-up delay-1">
+                <!-- Left Sidebar Categories -->
+                <div class="ecosystem-categories">
+                    <button class="eco-tab active" data-target="eco-digital">
+                        <div class="eco-tab-icon"><i class="fa-solid fa-laptop-code"></i></div>
+                        <div class="eco-tab-text">
+                            <h4>Digital Solutions</h4>
+                            <span>Enterprise Software & Management</span>
+                        </div>
+                    </button>
+                    <button class="eco-tab" data-target="eco-sport">
+                        <div class="eco-tab-icon"><i class="fa-solid fa-person-running"></i></div>
+                        <div class="eco-tab-text">
+                            <h4>Sport Technology</h4>
+                            <span>Analytics & Talent Discovery</span>
+                        </div>
+                    </button>
+                    <button class="eco-tab" data-target="eco-training">
+                        <div class="eco-tab-icon"><i class="fa-solid fa-user-graduate"></i></div>
+                        <div class="eco-tab-text">
+                            <h4>Skills Training</h4>
+                            <span>Empowering the Next Gen</span>
+                        </div>
+                    </button>
+                </div>
+                
+                <!-- Right Content Area -->
+                <div class="ecosystem-content">
+                    <!-- Digital Solutions Content -->
+                    <div class="eco-panel active" id="eco-digital">
+                        <div class="eco-grid">
+                            <div class="luxury-card">
+                                <div class="luxury-card-glow"></div>
+                                <div class="luxury-card-content">
+                                    <h5>5G E-GURUSCHOOL</h5>
+                                    <p>Advanced School Management with CBT integration.</p>
+                                    <div class="luxury-card-actions">
+                                        <a href="#" class="btn btn-primary btn-sm">Request Demo</a>
+                                        <a href="https://eguruschool.kowagurutech.ng" class="luxury-link" target="_blank">Visit <i class="fa-solid fa-arrow-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="luxury-card">
+                                <div class="luxury-card-glow"></div>
+                                <div class="luxury-card-content">
+                                    <h5>5G E-GURUCLINIC</h5>
+                                    <p>Comprehensive EMR & Hospital Management System.</p>
+                                    <div class="luxury-card-actions">
+                                        <a href="#" class="btn btn-primary btn-sm">Request Demo</a>
+                                        <a href="https://eguruclinic.kowagurutech.ng" class="luxury-link" target="_blank">Visit <i class="fa-solid fa-arrow-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="luxury-card">
+                                <div class="luxury-card-glow"></div>
+                                <div class="luxury-card-content">
+                                    <h5>5G ELECTION GURU</h5>
+                                    <p>Voter registry and live election tracking platform.</p>
+                                    <div class="luxury-card-actions">
+                                        <a href="#" class="btn btn-primary btn-sm">Request Demo</a>
+                                        <a href="https://electionguru.kowagurutech.ng" class="luxury-link" target="_blank">Visit <i class="fa-solid fa-arrow-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="luxury-card">
+                                <div class="luxury-card-glow"></div>
+                                <div class="luxury-card-content">
+                                    <h5>5G E-GURULOGISTICS</h5>
+                                    <p>Fleet tracking & warehouse inventory management.</p>
+                                    <div class="luxury-card-actions">
+                                        <a href="#" class="btn btn-primary btn-sm">Request Demo</a>
+                                        <a href="https://logistics.kowagurutech.ng" class="luxury-link" target="_blank">Visit <i class="fa-solid fa-arrow-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sport Technology Content -->
+                    <div class="eco-panel" id="eco-sport">
+                        <div class="eco-grid">
+                            <div class="luxury-card">
+                                <div class="luxury-card-glow"></div>
+                                <div class="luxury-card-content">
+                                    <h5>Kafriada Net</h5>
+                                    <p>Flagship sports talent discovery and scout network.</p>
+                                    <div class="luxury-card-actions">
+                                        <a href="#" class="btn btn-primary btn-sm">Request Demo</a>
+                                        <a href="https://kafriada.kowagurutech.ng" class="luxury-link" target="_blank">Visit <i class="fa-solid fa-arrow-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="luxury-card">
+                                <div class="luxury-card-glow"></div>
+                                <div class="luxury-card-content">
+                                    <h5>StatVest GPS</h5>
+                                    <p>Wearable athlete tracking and live health analytics.</p>
+                                    <div class="luxury-card-actions">
+                                        <a href="#" class="btn btn-primary btn-sm">Request Demo</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Training Content -->
+                    <div class="eco-panel" id="eco-training">
+                        <div class="eco-grid">
+                            <div class="luxury-card">
+                                <div class="luxury-card-glow"></div>
+                                <div class="luxury-card-content">
+                                    <h5>Full-Stack Development</h5>
+                                    <p>Comprehensive bootcamp for modern web engineering.</p>
+                                    <div class="luxury-card-actions">
+                                        <a href="#" class="btn btn-primary btn-sm">Join Waitlist</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="luxury-card">
+                                <div class="luxury-card-glow"></div>
+                                <div class="luxury-card-content">
+                                    <h5>AI & Data Science</h5>
+                                    <p>Master machine learning and advanced data tools.</p>
+                                    <div class="luxury-card-actions">
+                                        <a href="#" class="btn btn-primary btn-sm">Join Waitlist</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kafriada Net Spotlight Section -->
+    <section class="kafriada-spotlight">
+        <div class="spotlight-overlay"></div>
+        <div class="container spotlight-content">
+            <span class="section-badge-light">SPORTS TRANSFORMATION</span>
+            <h2>KAFRIADA NET</h2>
+            <h3>KowaGuru African Sport Network</h3>
+            <p>Our flagship sports tech ecosystem designed to discover, verify, and track athletic talent across Africa.
+                Kafriada Net connects scouts, agents, coaches, clubs, and federations while featuring ranking logs,
+                athlete tracking analytics, tournament planners, and live score reports.</p>
+            <div class="spotlight-buttons">
+                <a href="https://kafriada.kowagurutech.ng" target="_blank" class="btn btn-primary">Visit
+                    kafriada.kowagurutech.ng</a>
+                <a href="pages/about.html#sport-tech" class="btn btn-outline">Explore Sports Services</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="statistics">
+        <div class="container stat-grid">
+            <div class="stat-item">
+                <h2>150+</h2>
+                <p>Projects Completed</p>
+            </div>
+            <div class="stat-item">
+                <h2>99%</h2>
+                <p>Client Satisfaction</p>
+            </div>
+            <div class="stat-item">
+                <h2>50+</h2>
+                <p>Happy Clients</p>
+            </div>
+            <div class="stat-item">
+                <h2>10+</h2>
+                <p>Years of Experience</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-col-main">
+                <h3>KowaGuru Technology Limited</h3>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+                    <div class="contact-text">
+                        <strong>Address</strong>
+                        <p>No 2, Bodan/Hakimi street ,Virtual Connekt Opposite Birnin-KuduCentral Mosque,<br>Birnin
+                            Kudu, Jigawa, Nigeria</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+                    <div class="contact-text">
+                        <strong>Phone</strong>
+                        <p>+234 903 235 6601</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+                    <div class="contact-text">
+                        <strong>Email</strong>
+                        <p>info@kowagurutech.ng</p>
+                    </div>
+                </div>
+
+                <div class="social-links">
+                    <strong>Follow Us</strong>
+                    <div class="social-icons">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-col-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="pages/about.html">About Us</a></li>
+                    <li><a href="#divisions">Our Services</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#divisions">Digital Solutions</a></li>
+                    <li><a href="#divisions">Sport Technology</a></li>
+                    <li><a href="#divisions">Digital Skills Training</a></li>
+                    <li><a href="#">Projects & Portfolio</a></li>
+                    <li><a href="#">News & Blog</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 KowaGuru Technology Limited. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Hero Slideshow
+            const slides = document.querySelectorAll('.hero-slide');
+            let currentSlide = 0;
+            const slideInterval = 5000;
+
+            function nextSlide() {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }
+            setInterval(nextSlide, slideInterval);
+
+            // Scroll Reveal Animations
+            const revealEls = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('is-visible');
+                        observer.unobserve(e.target);
+                    }
+                });
+            }, { threshold: 0.12 });
+            revealEls.forEach(el => observer.observe(el));
+
+            // Header Scrolled State
+            const header = document.querySelector('header');
+            window.addEventListener('scroll', () => {
+                header.classList.toggle('scrolled', window.scrollY > 60);
+            });
+
+            // Luxury Ecosystem Tab Switcher
+            const ecoTabs = document.querySelectorAll('.eco-tab');
+            const ecoPanels = document.querySelectorAll('.eco-panel');
+
+            ecoTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active from all tabs and panels
+                    ecoTabs.forEach(t => t.classList.remove('active'));
+                    ecoPanels.forEach(p => p.classList.remove('active'));
+
+                    // Add active to clicked tab
+                    tab.classList.add('active');
+
+                    // Show target panel
+                    const targetId = tab.getAttribute('data-target');
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>
